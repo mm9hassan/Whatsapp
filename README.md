@@ -4,6 +4,10 @@
 # Export whats chat 
 
 
+#select options  Android  or iPhone 
+![Screenshot (11)](https://user-images.githubusercontent.com/99476440/200190006-ea88bcaf-1df5-40de-ae1b-44d1ec104535.png)
+
+
 
 #upload file 
 
