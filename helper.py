@@ -38,6 +38,36 @@ def pre(text):
     return df
 
 
+def iph_pre(text):
+    date=re.findall('\d{1,3}/\d{1,2}/\d{4},\s\d{1,2}:\d{1,2}:\d{1,2}',text)
+    user=re.split('\[\d{1,3}/\d{1,2}/\d{4},\s\d{1,2}:\d{1,2}:\d{1,2}\s\D{2}]\s',text)[1:]
+    df=pd.DataFrame({'date':date,'user':user})
+    id=[]
+    message=[]
+    for i in df['user']:
+        f=re.split('([\w\W]+?):\s',i)
+        if f[1:]:
+            id.append(f[1])
+            message.append(' '.join(f[2:]))
+        else:
+            id.append('notification')
+            message.append(f[0])
+
+    df['user']=id
+    df['message']=message
+    df['date']=pd.to_datetime(df['date'],format='%d/%m/%Y, %H:%M:%S')
+    df['day']=df['date'].dt.day_name()
+    df['month']=df['date'].dt.month_name()
+    df['year']=df['date'].dt.year
+    df.dropna(inplace=True)
+    df=df[df['user']!='notification']
+    df.drop_duplicates(inplace=True)
+    return df
+
+
+
+
+
 
 
 
