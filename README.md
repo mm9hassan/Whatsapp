@@ -1,7 +1,4 @@
-# Whatsapp chat 
-
-
-# Export whats chat 
+# Whatsapp chat analysis and Export textfile to csv 
 
 
 #select options  Android  or iPhone 
