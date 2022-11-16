@@ -10,6 +10,7 @@ import re
 
 
 def pre(text):
+
     date=re.findall('\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s-\s',text)
 
     user=re.split('\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s-\s',text)[1:]
