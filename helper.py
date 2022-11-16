@@ -10,10 +10,23 @@ import re
 
 
 def pre(text):
+    v=re.findall(r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s\D{2}\s-\s',text)
 
-    date=re.findall('\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s-\s',text)
+    if v==[]:
+        date=re.findall('\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s-\s',text)
 
-    user=re.split('\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s-\s',text)[1:]
+        user=re.split('\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s-\s',text)[1:]
+    else:
+        date=re.findall(r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s\D{2}\s-\s',text)
+
+        user=re.split(r'\d{1,2}/\d{1,2}/\d{2,4},\s\d{1,2}:\d{1,2}\s\D{2}\s-\s',text)[1:]
+    
+
+
+
+
+
+
     
     df=pd.DataFrame({'date':date,'user':user})
     id=[]
@@ -29,10 +42,7 @@ def pre(text):
 
     df['user']=id
     df['message']=message
-    df['date']=pd.to_datetime(df['date'],format='%d/%m/%Y, %H:%M - ')
-    df['day']=df['date'].dt.day_name()
-    df['month']=df['date'].dt.month_name()
-    df['year']=df['date'].dt.year
+    
     df.dropna(inplace=True)
     df=df[df['user']!='notification']
     df.drop_duplicates(inplace=True)
